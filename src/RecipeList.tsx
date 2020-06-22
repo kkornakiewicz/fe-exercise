@@ -1,29 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { } from "react";
 import { IRecipe } from "./Types";
-import { API_URL } from "./Config";
+import { Link } from "react-router-dom";
+interface Props {
+  recipes: IRecipe[];
+}
 
-
-function RecipeList() {
-  const [recipes, setRecipes] = useState<IRecipe[]>([]);
-
-  useEffect(() => {
-    fetch(API_URL, {
-      method: "GET",
-      mode: "cors"
-    })
-      .then(res => res.json())
-      .then(json => setRecipes(json))
-      .catch(error => console.log(error));
-  },[]);
-
+function RecipeList(props: Props) {
   return (
     <>
-      <h1>RecipeList</h1>
-      <ul>
-        {recipes.map(recipe => (
-          <li key={recipe.id}>{recipe.name}</li>
-        ))}
-      </ul>
+      {props.recipes.map(recipe => (
+        <ul>
+          <li>
+            <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
+          </li>
+        </ul>
+      ))}
     </>
   );
 }

@@ -1,13 +1,26 @@
 import React from "react";
-import {IRecipe} from "./Types"
+import { IRecipe } from "./Types";
 
-function Recipe(props : IRecipe) {
-  return (
-    <>
-      <h1>{props.name}</h1>
-      <div>{props.description}</div>
-    </>
-  );
+interface Props {
+  recipe : IRecipe;
 }
 
-export default Recipe;
+function RecipeDetail(props : Props) {
+  console.log("1");
+  console.log(props);
+  
+  let recipe = props.recipe
+  // let recipe = props.getRecipe(props.id)
+  console.log({recipe});
+  if(!recipe){
+    return <h3>Loading...</h3> 
+    }
+   
+  return (<>
+  <h3>{recipe.name}</h3>
+      <div>{recipe.description}</div>
+    </>);
+
+}
+
+export default RecipeDetail;
