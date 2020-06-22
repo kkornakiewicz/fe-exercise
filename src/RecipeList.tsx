@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IRecipe } from "./Types";
+import { API_URL } from "./Config";
 
-let sampleRecipe: IRecipe = {
-  name: "Sample recipe",
-  description: "Sample description"
-};
 
 function RecipeList() {
-  const [recipes, setRecipes] = useState<IRecipe[]>([sampleRecipe]);
+  const [recipes, setRecipes] = useState<IRecipe[]>([]);
+
+  useEffect(() => {
+    fetch(API_URL, {
+      method: "GET",
+      mode: "cors"
+    })
+      .then(res => res.json())
+      .then(json => setRecipes(json))
+      .catch(error => console.log(error));
+  },[]);
 
   return (
     <>
       <h1>RecipeList</h1>
       <ul>
         {recipes.map(recipe => (
-          <li>{recipe.name}</li>
+          <li key={recipe.id}>{recipe.name}</li>
         ))}
       </ul>
     </>
