@@ -1,4 +1,4 @@
-import React, { } from "react";
+import React from "react";
 import { IRecipe } from "./Types";
 import { Link } from "react-router-dom";
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 function RecipeList(props: Props) {
   return (
     <>
-      {props.recipes.map(recipe => (
+      {props.recipes.map((recipe) => (
         <ul>
           <li>
             <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>

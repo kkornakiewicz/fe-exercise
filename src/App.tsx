@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RecipeList from "./RecipeList";
 import RecipeDetail from "./RecipeDetail";
 import { IRecipe } from "./Types";
@@ -10,17 +10,17 @@ function App() {
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
 
   function recipeById(id: string) {
-    return recipes.filter(recipe => recipe.id === parseInt(id))[0];
+    return recipes.filter((recipe) => recipe.id === parseInt(id))[0];
   }
 
   useEffect(() => {
     fetch(API_URL, {
       method: "GET",
-      mode: "cors"
+      mode: "cors",
     })
-      .then(res => res.json())
-      .then(json => setRecipes(json))
-      .catch(error => console.log(error));
+      .then((res) => res.json())
+      .then((json) => setRecipes(json))
+      .catch((error) => console.log(error));
   }, []);
 
   return (
@@ -32,14 +32,11 @@ function App() {
             <Route exact path="/">
               <RecipeList recipes={recipes} />
             </Route>
-
             <Route
               exact
               path="/recipe/:id"
-              render={props => (
-                <RecipeDetail
-                  recipe={recipeById(props.match.params.id)}
-                />
+              render={(props) => (
+                <RecipeDetail recipe={recipeById(props.match.params.id)} />
               )}
             ></Route>
           </Switch>
