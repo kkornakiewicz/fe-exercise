@@ -50,4 +50,4 @@ TODO:
 - beutify
 - code clean-up
 - history - proper back instead of go to home
-
+- remove string concatenation in API.ts 

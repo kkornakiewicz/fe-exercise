@@ -8,7 +8,7 @@ const getAllRecipes = () =>
   });
 
 const deleteRecipe = (id: number) =>
-  fetch(API_URL + id, {
+  fetch(API_URL + id + "/", {
     method: "DELETE",
     mode: "cors",
   });
