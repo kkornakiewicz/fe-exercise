@@ -22,19 +22,18 @@ function RecipeDetail(props: Props & RouteComponentProps) {
 
   return (
     <>
+      <h1>Recipe detail:</h1>
       <h2>{recipe.name}</h2>
       <div>{recipe.description}</div>
       <h4>Ingredients: </h4>
       {recipe.ingredients.map((ingredient) => (
         <li>{ingredient.name}</li>
       ))}
-      <form>
-        <button onClick={() => historyPush("/recipe/" + recipe.id + "/edit")}>
-          Edit
-        </button>
-        <button onClick={handleRemove}> Delete </button>
-        <button onClick={() => historyPush("/")}>Back</button>
-      </form>
+      <button onClick={() => historyPush("/recipe/" + recipe.id + "/edit")}>
+        Edit
+      </button>
+      <button onClick={handleRemove}> Delete </button>
+      <button onClick={() => historyPush("/")}>Back</button>
     </>
   );
 }

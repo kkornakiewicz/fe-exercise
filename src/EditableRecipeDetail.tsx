@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { IRecipe, INewRecipe } from "./Types";
+import { IRecipe } from "./Types";
 
 interface Props {
   recipe?: IRecipe;
@@ -20,7 +20,8 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
 
   return (
     <>
-      <h1>{initRecipe.name ? recipe.name : "New recipe"}</h1>
+      <h1>Edit or add recipe:</h1>
+      <h2>{initRecipe.name ? recipe.name : "New recipe"}</h2>
       <form>
         Name:{" "}
         <input
