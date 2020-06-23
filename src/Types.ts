@@ -8,3 +8,10 @@ export interface IRecipe {
 export interface IIngredient {
   name: string;
 }
+
+// Recipe without ID
+export interface INewRecipe {
+  name: string;
+  description: string;
+  ingredients: IIngredient[];
+}

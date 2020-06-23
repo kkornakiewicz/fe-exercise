@@ -23,4 +23,14 @@ const patchRecipe = (recipe: IRecipe) =>
     body: JSON.stringify(recipe),
   });
 
-export { getAllRecipes, deleteRecipe, patchRecipe };
+const postRecipe = (recipe: IRecipe) =>
+  fetch(API_URL, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(recipe),
+  });
+
+export { postRecipe, getAllRecipes, deleteRecipe, patchRecipe };

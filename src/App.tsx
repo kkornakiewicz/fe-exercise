@@ -4,37 +4,48 @@ import RecipeList from "./RecipeList";
 import RecipeDetail from "./RecipeDetail";
 import { IRecipe } from "./Types";
 import "milligram";
-import { getAllRecipes, deleteRecipe, patchRecipe } from "./API";
+import { getAllRecipes, deleteRecipe, patchRecipe, postRecipe } from "./API";
 import EditableRecipeDetail from "./EditableRecipeDetail";
 
+interface IState {
+  recipes: IRecipe[];
+  reloadData: boolean;
+}
+
 function App() {
-  const [recipes, setRecipes] = useState<IRecipe[]>([]);
+  const [state, setState] = useState<IState>({
+    recipes: [],
+    reloadData: false,
+  });
 
   function recipeById(id: string) {
-    return recipes.filter((recipe) => recipe.id === parseInt(id))[0];
+    return state.recipes.filter((recipe) => recipe.id === parseInt(id))[0];
   }
 
-  function removeRecipeById(id: number) {
-    let updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
-    deleteRecipe(id);
-    setRecipes(updatedRecipes);
+  async function removeRecipeById(id: number) {
+    //let updatedRecipes = state.recipes.filter((recipe) => recipe.id !== id);
+    await deleteRecipe(id);
+    setState({ recipes: state.recipes, reloadData: !state.reloadData });
   }
 
-  function editRecipe(recipe: IRecipe) {
-    let remainingRecipes = recipes.filter(
-      (recipe1) => recipe.id !== recipe1.id
-    );
-    remainingRecipes.push(recipe);
-    patchRecipe(recipe);
-    setRecipes(remainingRecipes);
+  async function editRecipe(recipe: IRecipe) {
+    // let remainingRecipes = state.filter((recipe1) => recipe.id !== recipe1.id);
+    // remainingRecipes.push(recipe);
+    await patchRecipe(recipe);
+    setState({ recipes: state.recipes, reloadData: !state.reloadData });
+  }
+
+  async function addRecipe(recipe: IRecipe) {
+    await postRecipe(recipe);
+    setState({ recipes: state.recipes, reloadData: !state.reloadData });
   }
 
   useEffect(() => {
     getAllRecipes()
       .then((res) => res.json())
-      .then((json) => setRecipes(json))
+      .then((json) => setState({ recipes: json, reloadData: state.reloadData }))
       .catch((error) => console.log(error));
-  }, []);
+  }, [state.reloadData]);
 
   return (
     <Router>
@@ -42,10 +53,10 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path="/">
-              <RecipeList recipes={recipes} />
+              <RecipeList recipes={state.recipes} />
             </Route>
             <Route exact path="/recipe/add">
-              <EditableRecipeDetail action={(x) => {}} />
+              <EditableRecipeDetail action={addRecipe} />
             </Route>
             <Route
               exact

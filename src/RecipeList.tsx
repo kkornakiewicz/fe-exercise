@@ -7,6 +7,10 @@ interface Props {
 }
 
 function RecipeList(props: Props & RouteComponentProps) {
+  console.log(props);
+  if (!props.recipes) {
+    return <h3>Loading...</h3>;
+  }
   return (
     <>
       <h1>List of my recipes</h1>
