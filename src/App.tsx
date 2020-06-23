@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RecipeList from "./RecipeList";
 import RecipeDetail from "./RecipeDetail";
 import { IRecipe } from "./Types";
-import { API_URL } from "./Config";
 import "milligram";
+import { getAllRecipes, deleteRecipe } from "./API";
 
 function App() {
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
@@ -13,11 +13,14 @@ function App() {
     return recipes.filter((recipe) => recipe.id === parseInt(id))[0];
   }
 
+  function removeRecipeById(id: number) {
+    let updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
+    deleteRecipe(id);
+    setRecipes(updatedRecipes);
+  }
+
   useEffect(() => {
-    fetch(API_URL, {
-      method: "GET",
-      mode: "cors",
-    })
+    getAllRecipes()
       .then((res) => res.json())
       .then((json) => setRecipes(json))
       .catch((error) => console.log(error));
@@ -27,7 +30,6 @@ function App() {
     <Router>
       <div className="App">
         <div className="container">
-          <h1>List of my recipes</h1>
           <Switch>
             <Route exact path="/">
               <RecipeList recipes={recipes} />
@@ -36,7 +38,10 @@ function App() {
               exact
               path="/recipe/:id"
               render={(props) => (
-                <RecipeDetail recipe={recipeById(props.match.params.id)} />
+                <RecipeDetail
+                  removeFunction={removeRecipeById}
+                  recipe={recipeById(props.match.params.id)}
+                />
               )}
             ></Route>
           </Switch>

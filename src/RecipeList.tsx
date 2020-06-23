@@ -8,13 +8,14 @@ interface Props {
 function RecipeList(props: Props) {
   return (
     <>
-      {props.recipes.map((recipe) => (
-        <ul>
-          <li>
+      <h1>List of my recipes</h1>
+      <ul>
+        {props.recipes.map((recipe) => (
+          <li key={recipe.id}>
             <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
           </li>
-        </ul>
-      ))}
+        ))}
+      </ul>
     </>
   );
 }
