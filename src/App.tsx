@@ -4,7 +4,8 @@ import RecipeList from "./RecipeList";
 import RecipeDetail from "./RecipeDetail";
 import { IRecipe } from "./Types";
 import "milligram";
-import { getAllRecipes, deleteRecipe } from "./API";
+import { getAllRecipes, deleteRecipe, patchRecipe } from "./API";
+import EditableRecipeDetail from "./EditableRecipeDetail";
 
 function App() {
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
@@ -17,6 +18,15 @@ function App() {
     let updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
     deleteRecipe(id);
     setRecipes(updatedRecipes);
+  }
+
+  function editRecipe(recipe: IRecipe) {
+    let remainingRecipes = recipes.filter(
+      (recipe1) => recipe.id !== recipe1.id
+    );
+    remainingRecipes.push(recipe);
+    patchRecipe(recipe);
+    setRecipes(remainingRecipes);
   }
 
   useEffect(() => {
@@ -34,6 +44,9 @@ function App() {
             <Route exact path="/">
               <RecipeList recipes={recipes} />
             </Route>
+            <Route exact path="/recipe/add">
+              <EditableRecipeDetail action={(x) => {}} />
+            </Route>
             <Route
               exact
               path="/recipe/:id"
@@ -41,6 +54,16 @@ function App() {
                 <RecipeDetail
                   removeFunction={removeRecipeById}
                   recipe={recipeById(props.match.params.id)}
+                />
+              )}
+            ></Route>
+            <Route
+              exact
+              path="/recipe/:id/edit"
+              render={(props) => (
+                <EditableRecipeDetail
+                  recipe={recipeById(props.match.params.id)}
+                  action={editRecipe}
                 />
               )}
             ></Route>

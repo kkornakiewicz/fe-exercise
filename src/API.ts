@@ -1,4 +1,5 @@
 import { API_URL } from "./Config";
+import { IRecipe } from "./Types";
 
 const getAllRecipes = () =>
   fetch(API_URL, {
@@ -12,4 +13,14 @@ const deleteRecipe = (id: number) =>
     mode: "cors",
   });
 
-export { getAllRecipes, deleteRecipe };
+const patchRecipe = (recipe: IRecipe) =>
+  fetch(API_URL + recipe.id + "/", {
+    method: "PATCH",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(recipe),
+  });
+
+export { getAllRecipes, deleteRecipe, patchRecipe };

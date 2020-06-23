@@ -9,9 +9,11 @@ interface Props {
 
 function RecipeDetail(props: Props & RouteComponentProps) {
   let recipe = props.recipe;
+  let historyPush = props.history.push;
+
   const handleRemove = () => {
     props.removeFunction(recipe.id);
-    props.history.push("/");
+    historyPush("/");
   };
 
   if (!recipe) {
@@ -22,12 +24,17 @@ function RecipeDetail(props: Props & RouteComponentProps) {
     <>
       <h2>{recipe.name}</h2>
       <div>{recipe.description}</div>
-      <button>Edit</button>
-      <button onClick={handleRemove}> Delete </button>
       <h4>Ingredients: </h4>
       {recipe.ingredients.map((ingredient) => (
         <li>{ingredient.name}</li>
       ))}
+      <form>
+        <button onClick={() => historyPush("/recipe/" + recipe.id + "/edit")}>
+          Edit
+        </button>
+        <button onClick={handleRemove}> Delete </button>
+        <button onClick={() => historyPush("/")}>Back</button>
+      </form>
     </>
   );
 }
