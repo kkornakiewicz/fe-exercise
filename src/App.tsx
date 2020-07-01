@@ -6,10 +6,16 @@ import { IRecipe } from "./Types";
 import "milligram";
 import { getAllRecipes, deleteRecipe, patchRecipe, postRecipe } from "./API";
 import EditableRecipeDetail from "./EditableRecipeDetail";
+import ComponentWrapper from "./ComponentWrapper";
 
 interface IState {
   recipes: IRecipe[];
   reloadData: boolean;
+}
+
+export interface Message {
+  text?: String;
+  type?: String;
 }
 
 function App() {
@@ -18,6 +24,7 @@ function App() {
     reloadData: false,
   });
 
+  const [message, setMessage] = useState<Message>({});
   function recipeById(id: string) {
     return state.recipes.filter((recipe) => recipe.id === parseInt(id))[0];
   }
@@ -31,22 +38,53 @@ function App() {
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
-    await patchRecipe(recipe);
-    setState({ recipes: state.recipes, reloadData: !state.reloadData });
+
+    await patchRecipe(recipe).then((response) => {
+      let message: Message = {};
+      if (!response.ok) {
+        message.text = response.statusText;
+        message.type = "error";
+      } else {
+        message.text = "Recipe updated!";
+        setState({
+          ...state,
+          reloadData: !state.reloadData,
+        });
+      }
+      setMessage(message);
+    });
   }
 
   async function addRecipe(recipe: IRecipe) {
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
-    await postRecipe(recipe);
-    setState({ recipes: state.recipes, reloadData: !state.reloadData });
+    await postRecipe(recipe).then((response) => {
+      let message: Message = {};
+      if (!response.ok) {
+        message.text = response.statusText;
+        message.type = "error";
+      } else {
+        message.text = "Recipe created!";
+        setState({
+          ...state,
+          reloadData: !state.reloadData,
+        });
+      }
+      setMessage(message);
+    });
   }
 
   useEffect(() => {
+    console.log("Use effect.");
     getAllRecipes()
       .then((res) => res.json())
-      .then((json) => setState({ recipes: json, reloadData: state.reloadData }))
+      .then((json) =>
+        setState({
+          recipes: json,
+          reloadData: state.reloadData,
+        })
+      )
       .catch((error) => console.log(error));
   }, [state.reloadData]);
 
@@ -56,29 +94,37 @@ function App() {
         <div className="container">
           <Switch>
             <Route exact path="/">
-              <RecipeList recipes={state.recipes} />
+              <ComponentWrapper message={message}>
+                <RecipeList recipes={state.recipes} />
+              </ComponentWrapper>
             </Route>
             <Route exact path="/recipe/add">
-              <EditableRecipeDetail action={addRecipe} />
+              <ComponentWrapper message={message}>
+                <EditableRecipeDetail action={addRecipe} />
+              </ComponentWrapper>
             </Route>
             <Route
               exact
               path="/recipe/:id"
               render={(props) => (
-                <RecipeDetail
-                  removeFunction={removeRecipeById}
-                  recipe={recipeById(props.match.params.id)}
-                />
+                <ComponentWrapper message={message}>
+                  <RecipeDetail
+                    removeFunction={removeRecipeById}
+                    recipe={recipeById(props.match.params.id)}
+                  />
+                </ComponentWrapper>
               )}
             ></Route>
             <Route
               exact
               path="/recipe/:id/edit"
               render={(props) => (
-                <EditableRecipeDetail
-                  recipe={recipeById(props.match.params.id)}
-                  action={editRecipe}
-                />
+                <ComponentWrapper message={message}>
+                  <EditableRecipeDetail
+                    recipe={recipeById(props.match.params.id)}
+                    action={editRecipe}
+                  />
+                </ComponentWrapper>
               )}
             ></Route>
           </Switch>
