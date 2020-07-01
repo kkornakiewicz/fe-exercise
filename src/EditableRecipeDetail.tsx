@@ -29,6 +29,12 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
     }
   }, [recipe]);
 
+  useEffect(() => {
+    if (props.recipe) {
+      setRecipe(props.recipe);
+    }
+  }, [props.recipe]);
+
   const handleIngredientChange = (index: number, newName: string) => {
     if (newName === "") {
       let filteredIngredients = recipe.ingredients.filter(
@@ -55,7 +61,7 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
     <>
       <h1>Edit or add recipe:</h1>
       <form>
-        Name:{" "}
+        Name:
         <input
           value={recipe.name}
           onChange={(e) => setRecipe({ ...recipe, name: e.target.value })}
@@ -67,12 +73,13 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
             setRecipe({ ...recipe, description: e.target.value })
           }
         />
-        Ingredients:{" "}
+        Ingredients:
         <ol>
           <ul>
             {recipe.ingredients.map((ingredient, index) => {
               return (
                 <input
+                  key={index}
                   value={ingredient.name}
                   onChange={(e) =>
                     handleIngredientChange(index, e.target.value)
@@ -86,12 +93,13 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
           onClick={(e) => {
             e.preventDefault();
             props.action(recipe);
-            props.history.push("/");
           }}
         >
           Save
         </button>
-        <button onClick={() => props.history.push("/")}>Back</button>
+        <button onClick={() => props.history.push(`/recipe/${recipe.id}`)}>
+          Back
+        </button>
       </form>
     </>
   );

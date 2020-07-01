@@ -15,7 +15,6 @@ function RecipeDetail(props: Props & RouteComponentProps) {
     props.removeFunction(recipe.id!);
     historyPush("/");
   };
-
   if (!recipe) {
     return <h3>Loading...</h3>;
   }
@@ -26,8 +25,8 @@ function RecipeDetail(props: Props & RouteComponentProps) {
       <h2>{recipe.name}</h2>
       <div>{recipe.description}</div>
       <h4>Ingredients: </h4>
-      {recipe.ingredients.map((ingredient) => (
-        <li>{ingredient.name}</li>
+      {recipe.ingredients.map((ingredient, index) => (
+        <li key={index}>{ingredient.name}</li>
       ))}
       <button onClick={() => historyPush("/recipe/" + recipe.id + "/edit")}>
         Edit

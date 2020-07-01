@@ -23,15 +23,11 @@ function App() {
   }
 
   async function removeRecipeById(id: number) {
-    //let updatedRecipes = state.recipes.filter((recipe) => recipe.id !== id);
     await deleteRecipe(id);
     setState({ recipes: state.recipes, reloadData: !state.reloadData });
   }
 
   async function editRecipe(recipe: IRecipe) {
-    // let remainingRecipes = state.filter((recipe1) => recipe.id !== recipe1.id);
-    // remainingRecipes.push(recipe);
-
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
