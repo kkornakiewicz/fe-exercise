@@ -12,7 +12,7 @@ function RecipeDetail(props: Props & RouteComponentProps) {
   let historyPush = props.history.push;
 
   const handleRemove = () => {
-    props.removeFunction(recipe.id);
+    props.removeFunction(recipe.id!);
     historyPush("/");
   };
 

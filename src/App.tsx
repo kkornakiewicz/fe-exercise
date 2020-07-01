@@ -31,11 +31,18 @@ function App() {
   async function editRecipe(recipe: IRecipe) {
     // let remainingRecipes = state.filter((recipe1) => recipe.id !== recipe1.id);
     // remainingRecipes.push(recipe);
+
+    recipe.ingredients = recipe.ingredients.filter(
+      (ingredient) => ingredient.name !== ""
+    );
     await patchRecipe(recipe);
     setState({ recipes: state.recipes, reloadData: !state.reloadData });
   }
 
   async function addRecipe(recipe: IRecipe) {
+    recipe.ingredients = recipe.ingredients.filter(
+      (ingredient) => ingredient.name !== ""
+    );
     await postRecipe(recipe);
     setState({ recipes: state.recipes, reloadData: !state.reloadData });
   }

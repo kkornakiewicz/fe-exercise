@@ -16,7 +16,7 @@ function RecipeList(props: Props & RouteComponentProps) {
       <h1>List of my recipes</h1>
       <ul>
         {props.recipes
-          .sort((a, b) => a.id - b.id)
+          .sort((a, b) => a.id! - b.id!)
           .map((recipe) => (
             <li key={recipe.id}>
               <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
