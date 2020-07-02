@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/fe-exercise/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/fe-exercise/static/js/main.cfded2e3.chunk.js",
+    "main.js.map": "/fe-exercise/static/js/main.cfded2e3.chunk.js.map",
+    "runtime-main.js": "/fe-exercise/static/js/runtime-main.4d1fd165.js",
+    "runtime-main.js.map": "/fe-exercise/static/js/runtime-main.4d1fd165.js.map",
+    "static/css/2.6a7ab022.chunk.css": "/fe-exercise/static/css/2.6a7ab022.chunk.css",
+    "static/js/2.26a6457e.chunk.js": "/fe-exercise/static/js/2.26a6457e.chunk.js",
+    "static/js/2.26a6457e.chunk.js.map": "/fe-exercise/static/js/2.26a6457e.chunk.js.map",
+    "index.html": "/fe-exercise/index.html",
+    "precache-manifest.962659975219a24c917848481b938465.js": "/fe-exercise/precache-manifest.962659975219a24c917848481b938465.js",
+    "service-worker.js": "/fe-exercise/service-worker.js",
+    "static/css/2.6a7ab022.chunk.css.map": "/fe-exercise/static/css/2.6a7ab022.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/fe-exercise/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.26a6457e.chunk.js.LICENSE.txt": "/fe-exercise/static/js/2.26a6457e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4d1fd165.js",
+    "static/css/2.6a7ab022.chunk.css",
+    "static/js/2.26a6457e.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.cfded2e3.chunk.js"
+  ]
+}
