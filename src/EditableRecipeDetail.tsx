@@ -36,6 +36,7 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
   }, [props.recipe]);
 
   const handleIngredientChange = (index: number, newName: string) => {
+    // Remove empty ingredient
     if (newName === "") {
       let filteredIngredients = recipe.ingredients.filter(
         (_, i) => (index = i)
@@ -44,8 +45,8 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
       setRecipe({ ...recipe, ingredients: filteredIngredients });
       return;
     }
-
-    let updatedIngredients = recipe.ingredients.map((ingredient, i) => {
+    // Update ingredient
+    const updatedIngredients = recipe.ingredients.map((ingredient, i) => {
       if (index === i) {
         return {
           name: newName,
@@ -55,6 +56,14 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
       }
     });
     setRecipe({ ...recipe, ingredients: updatedIngredients });
+  };
+
+  const handleBack = () => {
+    if (recipe.id) {
+      props.history.push(`/recipe/${recipe.id}`);
+    } else {
+      props.history.push("/");
+    }
   };
 
   return (
@@ -97,9 +106,7 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
         >
           Save
         </button>
-        <button onClick={() => props.history.push(`/recipe/${recipe.id}`)}>
-          Back
-        </button>
+        <button onClick={handleBack}>Back</button>
       </form>
     </>
   );

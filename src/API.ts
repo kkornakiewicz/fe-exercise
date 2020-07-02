@@ -8,13 +8,13 @@ const getAllRecipes = () =>
   });
 
 const deleteRecipe = (id: number) =>
-  fetch(API_URL + id + "/", {
+  fetch(`${API_URL}${id}/`, {
     method: "DELETE",
     mode: "cors",
   });
 
 const patchRecipe = (recipe: IRecipe) =>
-  fetch(API_URL + recipe.id + "/", {
+  fetch(`${API_URL}${recipe.id}/`, {
     method: "PATCH",
     mode: "cors",
     headers: {
