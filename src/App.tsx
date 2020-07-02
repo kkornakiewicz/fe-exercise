@@ -30,8 +30,9 @@ function App() {
   }
 
   async function removeRecipeById(id: number) {
-    await deleteRecipe(id);
-    setState({ recipes: state.recipes, reloadData: !state.reloadData });
+    await deleteRecipe(id).then((response) =>
+      handleResponse(response, "delete recipe")
+    );
   }
 
   async function editRecipe(recipe: IRecipe) {
@@ -39,44 +40,36 @@ function App() {
       (ingredient) => ingredient.name !== ""
     );
 
-    await patchRecipe(recipe).then((response) => {
-      let message: Message = {};
-      if (!response.ok) {
-        message.text = response.statusText;
-        message.type = "error";
-      } else {
-        message.text = "Recipe updated!";
-        setState({
-          ...state,
-          reloadData: !state.reloadData,
-        });
-      }
-      setMessage(message);
-    });
+    await patchRecipe(recipe).then((response) =>
+      handleResponse(response, "update recipe")
+    );
   }
 
   async function addRecipe(recipe: IRecipe) {
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
-    await postRecipe(recipe).then((response) => {
-      let message: Message = {};
-      if (!response.ok) {
-        message.text = response.statusText;
-        message.type = "error";
-      } else {
-        message.text = "Recipe created!";
-        setState({
-          ...state,
-          reloadData: !state.reloadData,
-        });
-      }
-      setMessage(message);
-    });
+    await postRecipe(recipe).then((response) =>
+      handleResponse(response, "create recipe")
+    );
   }
 
+  const handleResponse = (response: Response, method: string) => {
+    let message: Message = {};
+    if (!response.ok) {
+      message.text = `Error: ${method} has failed.`;
+      message.type = "error";
+    } else {
+      message.text = `Success: ${method}`;
+      setState({
+        ...state,
+        reloadData: !state.reloadData,
+      });
+    }
+    setMessage(message);
+  };
+
   useEffect(() => {
-    console.log("Use effect.");
     getAllRecipes()
       .then((res) => res.json())
       .then((json) =>
@@ -87,6 +80,13 @@ function App() {
       )
       .catch((error) => console.log(error));
   }, [state.reloadData]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMessage({});
+    }, 2000);
+    return () => clearTimeout(timer);
+  });
 
   return (
     <Router>
