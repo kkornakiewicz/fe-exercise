@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { IRecipe } from "./Types";
+import { Button } from "./Button";
 
 interface Props {
   recipe?: IRecipe;
@@ -98,15 +99,15 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
             })}
           </ul>
         </ol>
-        <button
+        <Button
           onClick={(e) => {
             e.preventDefault();
             props.action(recipe);
           }}
         >
           Save
-        </button>
-        <button onClick={handleBack}>Back</button>
+        </Button>
+        <Button onClick={handleBack}>Back</Button>
       </form>
     </>
   );

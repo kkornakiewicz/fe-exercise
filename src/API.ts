@@ -1,5 +1,6 @@
-import { API_URL } from "./Config";
 import { IRecipe } from "./Types";
+
+const API_URL = process.env.REACT_APP_BACKEND!;
 
 const getAllRecipes = () =>
   fetch(API_URL, {

@@ -1,6 +1,7 @@
 import React from "react";
 import { IRecipe } from "./Types";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { Button } from "./Button";
 
 interface Props {
   recipes: IRecipe[];
@@ -22,7 +23,7 @@ function RecipeList(props: Props & RouteComponentProps) {
             </li>
           ))}
       </ul>
-      <button onClick={() => props.history.push("/recipe/add")}>Add</button>
+      <Button onClick={() => props.history.push("/recipe/add")}>Add</Button>
     </>
   );
 }

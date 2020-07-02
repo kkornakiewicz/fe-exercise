@@ -1,6 +1,7 @@
 import React from "react";
 import { IRecipe } from "./Types";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Button } from "./Button";
 
 interface Props {
   recipe: IRecipe;
@@ -28,11 +29,11 @@ function RecipeDetail(props: Props & RouteComponentProps) {
       {recipe.ingredients.map((ingredient, index) => (
         <li key={index}>{ingredient.name}</li>
       ))}
-      <button onClick={() => historyPush("/recipe/" + recipe.id + "/edit")}>
+      <Button onClick={() => historyPush("/recipe/" + recipe.id + "/edit")}>
         Edit
-      </button>
-      <button onClick={handleRemove}> Delete </button>
-      <button onClick={() => historyPush("/")}>Back</button>
+      </Button>
+      <Button onClick={handleRemove}> Delete </Button>
+      <Button onClick={() => historyPush("/")}>Back</Button>
     </>
   );
 }
