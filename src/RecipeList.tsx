@@ -12,7 +12,7 @@ function RecipeList(props: Props & RouteComponentProps) {
   }
   return (
     <>
-      <h1>List of my recipes</h1>
+      <h2>List of my recipes</h2>
       <ul>
         {props.recipes
           .sort((a, b) => a.id! - b.id!)

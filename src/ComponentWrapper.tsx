@@ -9,6 +9,7 @@ interface Props {
 const ComponentWrapper: FunctionComponent<Props> = (props: Props) => {
   return (
     <>
+      <h1>My recipe database</h1>
       {props.children}
       <h3>{props.message?.text}</h3>
     </>

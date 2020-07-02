@@ -68,7 +68,7 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
 
   return (
     <>
-      <h1>Edit or add recipe:</h1>
+      <h2>Edit or add recipe:</h2>
       <form>
         Name:
         <input

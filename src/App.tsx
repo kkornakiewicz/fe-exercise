@@ -4,7 +4,7 @@ import RecipeList from "./RecipeList";
 import RecipeDetail from "./RecipeDetail";
 import { IRecipe } from "./Types";
 import "milligram";
-import { getAllRecipes, deleteRecipe, patchRecipe, postRecipe } from "./API";
+import * as Api from "./API";
 import EditableRecipeDetail from "./EditableRecipeDetail";
 import ComponentWrapper from "./ComponentWrapper";
 
@@ -30,7 +30,7 @@ function App() {
   }
 
   async function removeRecipeById(id: number) {
-    await deleteRecipe(id).then((response) =>
+    await Api.deleteRecipe(id).then((response) =>
       handleResponse(response, "delete recipe")
     );
   }
@@ -40,7 +40,7 @@ function App() {
       (ingredient) => ingredient.name !== ""
     );
 
-    await patchRecipe(recipe).then((response) =>
+    await Api.patchRecipe(recipe).then((response) =>
       handleResponse(response, "update recipe")
     );
   }
@@ -49,7 +49,7 @@ function App() {
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
-    await postRecipe(recipe).then((response) =>
+    await Api.postRecipe(recipe).then((response) =>
       handleResponse(response, "create recipe")
     );
   }
@@ -70,7 +70,7 @@ function App() {
   };
 
   useEffect(() => {
-    getAllRecipes()
+    Api.getAllRecipes()
       .then((res) => res.json())
       .then((json) =>
         setState({

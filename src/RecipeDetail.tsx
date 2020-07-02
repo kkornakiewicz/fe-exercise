@@ -21,7 +21,7 @@ function RecipeDetail(props: Props & RouteComponentProps) {
 
   return (
     <>
-      <h1>Recipe detail:</h1>
+      <h2>Recipe detail:</h2>
       <h2>{recipe.name}</h2>
       <div>{recipe.description}</div>
       <h4>Ingredients: </h4>
