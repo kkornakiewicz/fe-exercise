@@ -84,21 +84,15 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
           }
         />
         Ingredients:
-        <ol>
-          <ul>
-            {recipe.ingredients.map((ingredient, index) => {
-              return (
-                <input
-                  key={index}
-                  value={ingredient.name}
-                  onChange={(e) =>
-                    handleIngredientChange(index, e.target.value)
-                  }
-                ></input>
-              );
-            })}
-          </ul>
-        </ol>
+        {recipe.ingredients.map((ingredient, index) => {
+          return (
+            <input
+              key={index}
+              value={ingredient.name}
+              onChange={(e) => handleIngredientChange(index, e.target.value)}
+            ></input>
+          );
+        })}
         <Button
           onClick={(e) => {
             e.preventDefault();
