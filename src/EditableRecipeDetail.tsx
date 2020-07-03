@@ -40,7 +40,7 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
     // Remove empty ingredient
     if (newName === "") {
       let filteredIngredients = recipe.ingredients.filter(
-        (_, i) => (index = i)
+        (_, i) => index !== i
       );
 
       setRecipe({ ...recipe, ingredients: filteredIngredients });
@@ -103,6 +103,7 @@ function EditableRecipeDetail(props: Props & RouteComponentProps) {
           onClick={(e) => {
             e.preventDefault();
             props.action(recipe);
+            handleBack();
           }}
         >
           Save

@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Live demo: http://164.90.188.89:3000/
 
 ## Available Scripts
 
@@ -42,12 +42,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-
-TODO:
-- ingredients view and add/patch
-- data validation and error handling
-- beutify
-- code clean-up
-- history - proper back instead of go to home
-- remove string concatenation in API.ts 
