@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Live demo: http://164.90.188.89:3000/
 
 ## Available Scripts
 
