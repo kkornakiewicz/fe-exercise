@@ -29,27 +29,27 @@ function App() {
     return state.recipes.filter((recipe) => recipe.id === parseInt(id))[0];
   }
 
-  async function removeRecipeById(id: number) {
-    await Api.deleteRecipe(id).then((response) =>
+  function removeRecipeById(id: number) {
+    Api.deleteRecipe(id).then((response) =>
       handleResponse(response, "delete recipe")
     );
   }
 
-  async function editRecipe(recipe: IRecipe) {
+  function editRecipe(recipe: IRecipe) {
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
 
-    await Api.patchRecipe(recipe).then((response) =>
+    Api.patchRecipe(recipe).then((response) =>
       handleResponse(response, "update recipe")
     );
   }
 
-  async function addRecipe(recipe: IRecipe) {
+  function addRecipe(recipe: IRecipe) {
     recipe.ingredients = recipe.ingredients.filter(
       (ingredient) => ingredient.name !== ""
     );
-    await Api.postRecipe(recipe).then((response) =>
+    Api.postRecipe(recipe).then((response) =>
       handleResponse(response, "create recipe")
     );
   }
@@ -86,7 +86,7 @@ function App() {
       setMessage({});
     }, 2000);
     return () => clearTimeout(timer);
-  });
+  }, [message]);
 
   return (
     <Router>
